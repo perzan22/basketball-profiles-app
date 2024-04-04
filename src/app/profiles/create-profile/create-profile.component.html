@@ -1,20 +1,20 @@
 <mat-card>
-    <form>
+    <form [formGroup]="form">
         <div class="form-div">
             <h2>Personal information</h2>
             <mat-form-field floatLabel="auto">
                 <mat-label>First name</mat-label>
-                <input matInput type="text">
+                <input matInput type="text" formControlName="name">
             </mat-form-field>
 
             <mat-form-field floatLabel="auto">
                 <mat-label>Second name</mat-label>
-                <input matInput type="text">
+                <input matInput type="text" formControlName="surname">
             </mat-form-field>
 
             <mat-form-field floatLabel="auto">
                 <mat-label>Date of birth</mat-label>
-                <input matInput [matDatepicker]="picker">
+                <input matInput [matDatepicker]="picker" formControlName="birthday">
                 <mat-hint>DD/MM/YYYY</mat-hint>
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
@@ -23,20 +23,20 @@
             <mat-form-field floatLabel="auto">
                 <mat-label>Height</mat-label>
                 <mat-hint>Height in centimeters</mat-hint>
-                <input matInput type="number">
+                <input matInput type="number" formControlName="height">
             </mat-form-field>
 
             <mat-form-field floatLabel="auto">
                 <mat-label>Weight</mat-label>
                 <mat-hint>Weight in kilograms</mat-hint>
-                <input matInput type="number">
+                <input matInput type="number" formControlName="weight">
             </mat-form-field>
         </div>
         <div class="form-div">
             <h2>Describe your basketball profile</h2>
             <mat-form-field floatLabel="auto">
                 <mat-label>Your primary position</mat-label>
-                <mat-select>
+                <mat-select formControlName="position">
                     @for (position of positions; track position ) {
                     <mat-option [value]="position.value">{{ position.viewValue }}</mat-option>
                     }
@@ -45,20 +45,20 @@
 
             <h3>Choose up to 3 biggest strengths as a player.</h3>
             <section class="strengths">
-                <mat-checkbox>Shooting</mat-checkbox>
-                <mat-checkbox>Dribbling</mat-checkbox>
-                <mat-checkbox>Defense</mat-checkbox>
-                <mat-checkbox>Basketball IQ</mat-checkbox>
-                <mat-checkbox>Athleticism</mat-checkbox>
-                <mat-checkbox>Rebounding</mat-checkbox>
-                <mat-checkbox>Team Player</mat-checkbox>
-                <mat-checkbox>Passing</mat-checkbox>
+                <mat-checkbox formControlName="strengths1">Shooting</mat-checkbox>
+                <mat-checkbox formControlName="strengths2">Dribbling</mat-checkbox>
+                <mat-checkbox formControlName="strengths3">Defense</mat-checkbox>
+                <mat-checkbox formControlName="strengths4">Basketball IQ</mat-checkbox>
+                <mat-checkbox formControlName="strengths5">Athleticism</mat-checkbox>
+                <mat-checkbox formControlName="strengths6">Rebounding</mat-checkbox>
+                <mat-checkbox formControlName="strengths7">Team Player</mat-checkbox>
+                <mat-checkbox formControlName="strengths8">Passing</mat-checkbox>
             </section>
             
 
             <mat-form-field>
                 <mat-label>Write something about yourself.</mat-label>
-                <textarea matInput></textarea>
+                <textarea matInput formControlName="description"></textarea>
             </mat-form-field>
         </div>
     </form>

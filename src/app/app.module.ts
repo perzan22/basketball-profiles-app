@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { CreateProfileComponent } from './profiles/create-profile/create-profile.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AngularMaterialModule } from './angular-material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,9 @@ import { AngularMaterialModule } from './angular-material.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     provideAnimationsAsync()

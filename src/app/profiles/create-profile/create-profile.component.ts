@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class CreateProfileComponent {
 
+  positions = [
+    {value: 'pg', viewValue: 'PG - Point Guard'},
+    {value: 'sg', viewValue: 'SG - Shooting Guard'},
+    {value: 'sf', viewValue: 'SF - Small Forward'},
+    {value: 'pf', viewValue: 'PF - Power Forward'},
+    {value: 'c', viewValue: 'C - Center'},
+
+  ] 
 }

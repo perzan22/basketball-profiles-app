@@ -7,11 +7,13 @@ import { CreateProfileComponent } from './profiles/create-profile/create-profile
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { AngularMaterialModule } from './angular-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HeaderComponent } from './header/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CreateProfileComponent
+    CreateProfileComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
 <mat-card>
-    <form [formGroup]="form">
+    <form [formGroup]="form" (submit)="onSubmitProfile()">
         <div class="form-div">
             <h2>Personal information</h2>
             <mat-form-field floatLabel="auto">

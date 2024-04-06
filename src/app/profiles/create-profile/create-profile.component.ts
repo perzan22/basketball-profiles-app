@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Profile } from '../profile.model'
 
 @Component({
   selector: 'app-create-profile',
@@ -51,6 +52,10 @@ export class CreateProfileComponent implements OnInit {
       'strengths7': new FormControl(false),
       'strengths8': new FormControl(false)
     });
+  }
+
+  onSubmitProfile() {
+
   }
 
 

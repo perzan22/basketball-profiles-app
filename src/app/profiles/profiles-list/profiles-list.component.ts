@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Profile } from '../profile.model';
 
 @Component({
   selector: 'app-profiles-list',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class ProfilesListComponent {
 
+  profiles: Profile[] = [];
+
+  addProfile(profile: Profile) {
+    
+    
+
+  }
 }

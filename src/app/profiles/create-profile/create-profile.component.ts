@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Profile } from '../profile.model'
+import { HttpClient } from '@angular/common/http';
+import { ProfileService } from '../profile.service';
 
 @Component({
   selector: 'app-create-profile',
@@ -19,6 +21,8 @@ export class CreateProfileComponent implements OnInit {
     { value: 'c', viewValue: 'C - Center' },
 
   ]
+
+  constructor(private profileService: ProfileService) {}
 
   ngOnInit(): void {
 
@@ -55,7 +59,10 @@ export class CreateProfileComponent implements OnInit {
   }
 
   onSubmitProfile() {
-
+    if (this.form.invalid) {
+      return;
+    }
+    this.profileService.addProfile(this.form.value.name, this.form.value.surname);
   }
 
 

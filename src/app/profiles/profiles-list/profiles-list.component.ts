@@ -10,9 +10,5 @@ export class ProfilesListComponent {
 
   profiles: Profile[] = [];
 
-  addProfile(profile: Profile) {
-    
-    
-
-  }
+  
 }

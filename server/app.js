@@ -3,10 +3,12 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors')
 
+const profileRoutes = require('./routes/profiles')
+
 
 const app = express();
 
-mongoose.connect('mongodb+srv://olafperzanowski:' + 'NwadPWZOOJdM4uMR' + '@cluster0.wjuhgvo.mongodb.net/node-angular')
+mongoose.connect('mongodb+srv://olafperzanowski:' + 'NwadPWZOOJdM4uMR' + '@cluster0.wjuhgvo.mongodb.net/basketball-app')
 .then(() => {
     console.log('Connected to MongoDB successfully')
 })
@@ -17,10 +19,9 @@ mongoose.connect('mongodb+srv://olafperzanowski:' + 'NwadPWZOOJdM4uMR' + '@clust
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false}));
 
-app.use(cors())
+app.use(cors());
 
-const router = express.Router();
-
+app.use('/api/profiles/', profileRoutes);
 
 
 module.exports = app;

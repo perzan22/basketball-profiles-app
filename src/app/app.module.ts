@@ -9,12 +9,14 @@ import { AngularMaterialModule } from './angular-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ProfilesListComponent } from './profiles/profiles-list/profiles-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateProfileComponent,
-    HeaderComponent
+    HeaderComponent,
+    ProfilesListComponent
   ],
   imports: [
     BrowserModule,

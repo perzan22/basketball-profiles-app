@@ -23,3 +23,13 @@ exports.createProfile = (req, res, next) => {
         });
     })
 }
+
+exports.getProfiles = (req, res, next) => {
+    Profile.find().then(documents =>
+        res.status(200).json({
+            message: 'Profiles fetched succesfully!',
+            profiles: documents
+        })
+    );
+
+}

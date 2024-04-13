@@ -1,7 +1,9 @@
-<mat-accordion>
-    <mat-expansion-panel>
+<mat-accordion *ngIf="profiles.length > 0" multi="true">
+    <mat-expansion-panel *ngFor="let profile of profiles">
         <mat-expansion-panel-header>
-            
+            <h2>{{ profile.name }}</h2><h2>{{ profile.surname }}</h2>
         </mat-expansion-panel-header>
     </mat-expansion-panel>
 </mat-accordion>
+
+<p class="info-text mat-body-1" *ngIf="profiles.length == 0">No profiles added!</p>

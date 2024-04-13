@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Profile } from '../profile.model'
-import { HttpClient } from '@angular/common/http';
 import { ProfileService } from '../profile.service';
 
 @Component({
@@ -59,10 +57,11 @@ export class CreateProfileComponent implements OnInit {
   }
 
   onSubmitProfile() {
+
     if (this.form.invalid) {
       return;
     }
-    this.profileService.addProfile(this.form.value.name, this.form.value.surname);
+    this.profileService.addProfile(this.form.value.name, this.form.value.surname, this.form.value.birthday, this.form.value.height, this.form.value.weight, this.form.value.position, this.form.value.description);
   }
 
 

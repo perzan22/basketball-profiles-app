@@ -11,9 +11,11 @@ export class ProfileService {
 
     constructor(private http: HttpClient) {}
 
-    addProfile(name: string, surname: string) {
+    addProfile(name: string, surname: string, birthday: Date, height: string, weight: string, position: string, description: string) {
         
-        const profile: Profile = { name: name, surname: surname }
+        const stringBirth = birthday.toISOString().substring(0, 10);
+        console.log(stringBirth)
+        const profile: Profile = { name: name, surname: surname, birthday: stringBirth, height: height, weight: weight, position: position, description: description }
 
         this.http.post('http://localhost:3000/api/profiles', profile).subscribe({
             next: () => {

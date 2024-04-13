@@ -1,8 +1,18 @@
 <mat-accordion *ngIf="profiles.length > 0" multi="true">
     <mat-expansion-panel *ngFor="let profile of profiles">
         <mat-expansion-panel-header>
-            <h2>{{ profile.name }}</h2><h2>{{ profile.surname }}</h2>
+            <mat-panel-title>
+                <h2>{{ profile.name }} {{ profile.surname }} </h2>
+            </mat-panel-title>
+            <mat-panel-description>
+                <h2>{{ profile.position }}</h2>
+            </mat-panel-description>
         </mat-expansion-panel-header>
+        <h3>Personal info:<br></h3>
+        <p>Birthday: {{ profile.birthday }}<br></p>
+        <p>Height: {{ profile.height }}<br></p>
+        <p>Weight: {{ profile.weight }}<br></p>
+        <p>Description: <br>{{ profile.description }}</p>
     </mat-expansion-panel>
 </mat-accordion>
 

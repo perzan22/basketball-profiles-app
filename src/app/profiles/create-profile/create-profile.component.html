@@ -1,5 +1,5 @@
 <mat-card>
-    <form [formGroup]="form">
+    <form [formGroup]="form" (submit)="onSubmitProfile()">
         <div class="form-div">
             <h2>Personal information</h2>
             <mat-form-field floatLabel="auto">
@@ -60,6 +60,7 @@
                 <mat-label>Write something about yourself.</mat-label>
                 <textarea matInput formControlName="description"></textarea>
             </mat-form-field>
+            <button type="submit" mat-raised-button>Publish your profile</button>
         </div>
     </form>
 </mat-card>

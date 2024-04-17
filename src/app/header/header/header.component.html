@@ -1,8 +1,30 @@
-<mat-toolbar color="primary">
-    <h1><a routerLink="/">Basketball profiles</a></h1>
-    <ul>
-        <li>
-            <a routerLink="/create" mat-button>Create profile</a>
-        </li>
-    </ul>
-</mat-toolbar>
+<mat-sidenav-container>
+    <mat-sidenav mode="side" position="end" #sidenav [fixedInViewport]="true">
+        <ul>
+            <li>
+                <a routerLink="/create" mat-button (click)="sidenav.close()">Create profile</a>
+            </li>
+            <li>
+                <a routerLink="/signup" mat-button (click)="sidenav.close()">Signup</a>
+            </li>
+            <li>
+                <a routerLink="/login" mat-button (click)="sidenav.close()">Login</a>
+            </li>
+        </ul>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color="primary">
+            <h1>
+                <a routerLink="/" (click)="sidenav.close()">Basketball profiles</a>
+            </h1>
+            <ul>
+                <li>
+                    <button mat-icon-button (click)="sidenav.toggle()">
+                        <mat-icon>menu</mat-icon>
+                    </button>   
+                </li>
+            </ul>
+        </mat-toolbar>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+

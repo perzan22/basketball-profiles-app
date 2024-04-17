@@ -1,7 +1,26 @@
-<mat-accordion>
-    <mat-expansion-panel>
+<mat-accordion *ngIf="profiles.length > 0" multi="true">
+    <mat-expansion-panel *ngFor="let profile of profiles">
         <mat-expansion-panel-header>
-            
+            <mat-panel-title>
+                <h2>{{ profile.name }} {{ profile.surname }} </h2>
+            </mat-panel-title>
+            <mat-panel-description>
+                <h2>{{ profile.position }}</h2>
+            </mat-panel-description>
         </mat-expansion-panel-header>
+        <section class="expansion-content">
+            <div class="personal-info">
+                <h3>Personal info:<br></h3>
+                <p>Birthday: {{ profile.birthday }}<br></p>
+                <p>Height: {{ profile.height }} cm<br></p>
+                <p>Weight: {{ profile.weight }} kg<br></p>
+                <p>Description: <br>{{ profile.description }}</p>
+            </div>
+           <div class="profile-buttons">
+                <button mat-button color="warn" (click)="onDelete(profile.id)">DELETE</button>
+           </div>
+        </section>
     </mat-expansion-panel>
 </mat-accordion>
+
+<p class="info-text mat-body-1" *ngIf="profiles.length == 0">No profiles added!</p>

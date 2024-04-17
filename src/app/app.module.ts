@@ -9,12 +9,18 @@ import { AngularMaterialModule } from './angular-material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ProfilesListComponent } from './profiles/profiles-list/profiles-list.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateProfileComponent,
-    HeaderComponent
+    HeaderComponent,
+    ProfilesListComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,

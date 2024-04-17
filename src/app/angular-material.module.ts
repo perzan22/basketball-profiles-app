@@ -8,7 +8,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker'
 import { provideNativeDateAdapter } from "@angular/material/core";
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatExpansionModule } from '@angular/material/expansion'
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav'
 
 
 @NgModule({
@@ -20,7 +22,9 @@ import { MatExpansionModule } from '@angular/material/expansion'
         MatDatepickerModule,
         MatCheckboxModule,
         MatToolbarModule,
-        MatExpansionModule
+        MatExpansionModule,
+        MatIconModule,
+        MatSidenavModule
     ],
     providers: [
         provideNativeDateAdapter()

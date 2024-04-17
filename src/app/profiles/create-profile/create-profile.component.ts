@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Profile } from '../profile.model'
-import { HttpClient } from '@angular/common/http';
 import { ProfileService } from '../profile.service';
 
 @Component({
@@ -14,11 +12,11 @@ export class CreateProfileComponent implements OnInit {
   form!: FormGroup;
 
   positions = [
-    { value: 'pg', viewValue: 'PG - Point Guard' },
-    { value: 'sg', viewValue: 'SG - Shooting Guard' },
-    { value: 'sf', viewValue: 'SF - Small Forward' },
-    { value: 'pf', viewValue: 'PF - Power Forward' },
-    { value: 'c', viewValue: 'C - Center' },
+    { value: 'PG - Point Guard' },
+    { value: 'SG - Shooting Guard' },
+    { value: 'SF - Small Forward' },
+    { value: 'PF - Power Forward' },
+    { value: 'C - Center' },
 
   ]
 
@@ -59,11 +57,15 @@ export class CreateProfileComponent implements OnInit {
   }
 
   onSubmitProfile() {
+
     if (this.form.invalid) {
       return;
     }
-    this.profileService.addProfile(this.form.value.name, this.form.value.surname);
+    this.profileService.addProfile(this.form.value.name, this.form.value.surname, this.form.value.birthday, this.form.value.height, this.form.value.weight, this.form.value.position, this.form.value.description);
+    this.form.reset();
   }
+    
+
 
 
 }

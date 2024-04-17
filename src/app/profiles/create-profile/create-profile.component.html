@@ -38,7 +38,7 @@
                 <mat-label>Your primary position</mat-label>
                 <mat-select formControlName="position">
                     @for (position of positions; track position ) {
-                    <mat-option [value]="position.value">{{ position.viewValue }}</mat-option>
+                    <mat-option [value]="position.value">{{ position.value }}</mat-option>
                     }
                 </mat-select>
             </mat-form-field>

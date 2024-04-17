@@ -12,11 +12,11 @@ export class CreateProfileComponent implements OnInit {
   form!: FormGroup;
 
   positions = [
-    { value: 'pg', viewValue: 'PG - Point Guard' },
-    { value: 'sg', viewValue: 'SG - Shooting Guard' },
-    { value: 'sf', viewValue: 'SF - Small Forward' },
-    { value: 'pf', viewValue: 'PF - Power Forward' },
-    { value: 'c', viewValue: 'C - Center' },
+    { value: 'PG - Point Guard' },
+    { value: 'SG - Shooting Guard' },
+    { value: 'SF - Small Forward' },
+    { value: 'PF - Power Forward' },
+    { value: 'C - Center' },
 
   ]
 

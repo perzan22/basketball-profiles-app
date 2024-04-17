@@ -20,7 +20,10 @@ exports.createProfile = (req, res, next) => {
         console.log(result)
         res.status(201).json({
             message: 'Profile added successfully',
-            profile: result
+            profile: {
+                ...result,
+                id: result._id
+            }
         });
     })
 }
@@ -33,4 +36,14 @@ exports.getProfiles = (req, res, next) => {
         })
     );
 
+}
+
+exports.deleteProfile = (req, res, next) => {
+    Profile.deleteOne({_id: req.params.id}).then(result => {
+        if (result.deletedCount > 0) {
+            res.status(200).json({ message: 'Deleted successfully' })
+        } else {
+            res.status(401).json({ message: 'Delete not successfully' })
+        }
+    })
 }

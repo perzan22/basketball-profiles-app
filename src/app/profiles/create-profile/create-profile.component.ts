@@ -62,7 +62,10 @@ export class CreateProfileComponent implements OnInit {
       return;
     }
     this.profileService.addProfile(this.form.value.name, this.form.value.surname, this.form.value.birthday, this.form.value.height, this.form.value.weight, this.form.value.position, this.form.value.description);
+    this.form.reset();
   }
+    
+
 
 
 }

@@ -17,7 +17,7 @@
                 <p>Description: <br>{{ profile.description }}</p>
             </div>
            <div class="profile-buttons">
-                <button mat-button color="warn" (click)="onDelete()">DELETE</button>
+                <button mat-button color="warn" (click)="onDelete(profile.id)">DELETE</button>
            </div>
         </section>
     </mat-expansion-panel>

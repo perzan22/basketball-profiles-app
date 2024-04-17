@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Profile } from "./profile.model";
-import { Subject } from "rxjs";
+import { Subject, map } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
 export class ProfileService {
@@ -15,22 +15,46 @@ export class ProfileService {
         
         const stringBirth = birthday.toISOString().substring(0, 10);
         console.log(stringBirth)
-        const profile: Profile = { name: name, surname: surname, birthday: stringBirth, height: height, weight: weight, position: position, description: description }
+        const profileData = new FormData();
+        profileData.append('name', name)
+        profileData.append('surname', surname)
+        profileData.append('birthday', stringBirth)
+        profileData.append('height', height)
+        profileData.append('weight', weight)
+        profileData.append('position', position)
+        profileData.append('description', description)
 
-        this.http.post('http://localhost:3000/api/profiles', profile).subscribe({
+        this.http.post<{message: string, profile: Profile}>('http://localhost:3000/api/profiles', profileData).subscribe({
             next: () => {
                 console.log('Profile created')
             },
             error: () => {
-                console.log("Profile nopt created")
+                console.log("Profile not created")
             }
-    });
+        });
     
     }
 
     getProfiles() {
 
-        this.http.get<{ message: string, profiles: Profile[] }>('http://localhost:3000/api/profiles').subscribe({
+        this.http.get<{ message: string, profiles: any }>('http://localhost:3000/api/profiles')
+        .pipe(map(profileData => {
+            return {
+                profiles: profileData.profiles.map((profile: { _id: any; name: any; surname: any; birthday: any; height: any; weight: any; position: any; description: any; }) => {
+                    return {
+                        id: profile._id,
+                        name: profile.name, 
+                        surname: profile.surname,
+                        birthday: profile.birthday,
+                        height: profile.height,
+                        weight: profile.weight,
+                        position: profile.position,
+                        description: profile.description
+                    }
+                })
+            }
+        }))
+        .subscribe({
             next: (fetchedProfiles) => {
                 this.profiles = fetchedProfiles.profiles;
                 this.profilesSubs.next({ profiles: [...this.profiles] });
@@ -40,5 +64,9 @@ export class ProfileService {
 
     getProfilesUpdateListener() {
         return this.profilesSubs.asObservable();
+    }
+
+    deleteProfile(profileID: string) {
+        return this.http.delete('http://localhost:3000/api/profiles/' + profileID)
     }
 }

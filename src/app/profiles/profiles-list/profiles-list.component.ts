@@ -17,21 +17,27 @@ export class ProfilesListComponent implements OnInit, OnDestroy{
   constructor(private profileService: ProfileService) {}
 
   ngOnInit(): void {
+    
     this.profileService.getProfiles();
     this.profileSubs = this.profileService.getProfilesUpdateListener().subscribe({
       next: profileData => {
         this.profiles = profileData.profiles;
+        console.log(this.profiles)
       }
     })
-
+    
   }
 
   ngOnDestroy(): void {
     this.profileSubs.unsubscribe();
   }
 
-  onDelete() {
-    return
+  onDelete(profileID: string) {
+    this.profileService.deleteProfile(profileID).subscribe({
+      next: () => {
+        this.profileService.getProfiles();
+      }
+    })
   }
 
 }

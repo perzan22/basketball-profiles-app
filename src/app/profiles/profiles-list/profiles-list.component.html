@@ -8,11 +8,18 @@
                 <h2>{{ profile.position }}</h2>
             </mat-panel-description>
         </mat-expansion-panel-header>
-        <h3>Personal info:<br></h3>
-        <p>Birthday: {{ profile.birthday }}<br></p>
-        <p>Height: {{ profile.height }} cm<br></p>
-        <p>Weight: {{ profile.weight }} kg<br></p>
-        <p>Description: <br>{{ profile.description }}</p>
+        <section class="expansion-content">
+            <div class="personal-info">
+                <h3>Personal info:<br></h3>
+                <p>Birthday: {{ profile.birthday }}<br></p>
+                <p>Height: {{ profile.height }} cm<br></p>
+                <p>Weight: {{ profile.weight }} kg<br></p>
+                <p>Description: <br>{{ profile.description }}</p>
+            </div>
+           <div class="profile-buttons">
+                <button mat-button color="warn" (click)="onDelete()">DELETE</button>
+           </div>
+        </section>
     </mat-expansion-panel>
 </mat-accordion>
 

@@ -30,5 +30,8 @@ export class ProfilesListComponent implements OnInit, OnDestroy{
     this.profileSubs.unsubscribe();
   }
 
+  onDelete() {
+    return
+  }
 
 }

@@ -7,9 +7,8 @@ import { Subject } from "rxjs";
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-    private token!: string;
-    private isAuth = false;
-    private userID!: string;
+    private token!: string | undefined;
+    private userID!: string | undefined;
     private name: string = '';
     private surname: string = '';
     private authStatusListener = new Subject<{ isAuth: boolean }>;
@@ -18,10 +17,6 @@ export class AuthService {
 
     getToken() {
         return this.token;
-    }
-
-    getIsAuth() {
-        return this.isAuth;
     }
 
     getUserId() {
@@ -56,7 +51,6 @@ export class AuthService {
                 const token = response.token;
                 this.token = token;
                 if(token) {
-                    this.isAuth = true;
                     this.userID = response.userID;
                     this.name = response.name;
                     this.surname = response.surname;
@@ -67,5 +61,11 @@ export class AuthService {
         })
     }
 
-    
+    logout() {
+        this.authStatusListener.next({ isAuth: false });
+        this.name = '';
+        this.surname = ''
+        this.token = undefined;
+        this.userID = undefined;
+    }
 }

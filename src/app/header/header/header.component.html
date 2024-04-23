@@ -11,7 +11,7 @@
                 <a *ngIf="!isAuthorizated" routerLink="/login" mat-button (click)="sidenav.close()">Login</a>
             </li>
             <li>
-                <a *ngIf="isAuthorizated" routerLink="/" mat-button (click)="sidenav.close()" (click)="logout()">Logout</a>
+                <a *ngIf="isAuthorizated" routerLink="/" mat-button (click)="sidenav.close()" (click)="onLogout()">Logout</a>
             </li>
         </ul>
     </mat-sidenav>

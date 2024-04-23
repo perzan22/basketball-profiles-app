@@ -12,7 +12,7 @@ export class AuthService {
     private userID!: string;
     private name: string = '';
     private surname: string = '';
-    private authStatusListener = new Subject<boolean>();
+    private authStatusListener = new Subject<{ isAuth: boolean }>;
 
     constructor(private http: HttpClient, private router: Router) {}
 
@@ -30,6 +30,14 @@ export class AuthService {
 
     getAuthStatusListener() {
         return this.authStatusListener.asObservable();
+    }
+
+    getName() {
+        return this.name;
+    }
+
+    getSurname() {
+        return this.surname;
     }
 
     createUser(email: string, password: string, name: string, surname: string) {
@@ -52,7 +60,7 @@ export class AuthService {
                     this.userID = response.userID;
                     this.name = response.name;
                     this.surname = response.surname;
-                    this.authStatusListener.next(true);
+                    this.authStatusListener.next({ isAuth: true });
                     this.router.navigate(['/']);
                 }
             }

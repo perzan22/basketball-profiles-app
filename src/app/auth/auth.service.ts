@@ -11,6 +11,7 @@ export class AuthService {
     private userID!: string | undefined;
     private name: string = '';
     private surname: string = '';
+    private isAuth: boolean = false;
     private authStatusListener = new Subject<{ isAuth: boolean }>;
 
     constructor(private http: HttpClient, private router: Router) {}
@@ -35,10 +36,19 @@ export class AuthService {
         return this.surname;
     }
 
+    getIsAuth() {
+        return this.isAuth;
+    }
+
     createUser(email: string, password: string, name: string, surname: string) {
         const authData: AuthData = { email: email, password: password, name: name, surname: surname };
-        this.http.post('http://localhost:3000/api/users/signup', authData).subscribe({
-            next: () => {
+        this.http.post<{ token: string, userID: string, name: string, surname: string }>('http://localhost:3000/api/users/signup', authData).subscribe({
+            next: response => {
+                this.isAuth = true;
+                this.userID = response.userID;
+                this.name = response.name;
+                this.surname = response.surname;
+                this.authStatusListener.next({ isAuth: true });
                 this.router.navigate(['/']);
             }
         })
@@ -51,6 +61,7 @@ export class AuthService {
                 const token = response.token;
                 this.token = token;
                 if(token) {
+                    this.isAuth = true;
                     this.userID = response.userID;
                     this.name = response.name;
                     this.surname = response.surname;
@@ -63,8 +74,9 @@ export class AuthService {
 
     logout() {
         this.authStatusListener.next({ isAuth: false });
+        this.isAuth = false;
         this.name = '';
-        this.surname = ''
+        this.surname = '';
         this.token = undefined;
         this.userID = undefined;
     }

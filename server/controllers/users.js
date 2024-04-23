@@ -11,10 +11,15 @@ exports.createUser = (req, res, next) => {
             name: req.body.name,
             surname: req.body.surname
         });
-        user.save().then(result => {
+        user.save().then(createdUser => {
+            const token = jwt.sign({ email: createdUser.email, userID: createdUser._id, name: createdUser.name, surname: createdUser.surname }, 
+            'SECRET_PHRASE_LONG_ENOUGH_to_BE_VALID_SECRET_KEY_OR_NOT');
             res.status(201).json({
                 message: 'User created',
-                result: result
+                token: token,
+                userID: createdUser._id,
+                name: createdUser.name,
+                surname: createdUser.surname
             })
         })
     })

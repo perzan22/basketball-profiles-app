@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ProfilesListComponent } from './profiles/profiles-list/profiles-list.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { SignupComponent } from './auth/signup/signup.component';
     HttpClientModule
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

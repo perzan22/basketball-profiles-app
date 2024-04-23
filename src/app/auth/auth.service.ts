@@ -3,18 +3,19 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthData } from "./auth-data.model";
 import { Subject } from "rxjs";
+import { CookieService } from "ngx-cookie-service";
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-    private token!: string | undefined;
-    private userID!: string | undefined;
+    private token!: string;
+    private userID!: string;
     private name: string = '';
     private surname: string = '';
     private isAuth: boolean = false;
     private authStatusListener = new Subject<{ isAuth: boolean }>;
 
-    constructor(private http: HttpClient, private router: Router) {}
+    constructor(private http: HttpClient, private router: Router, private cookies: CookieService) {}
 
     getToken() {
         return this.token;
@@ -49,6 +50,7 @@ export class AuthService {
                 this.name = response.name;
                 this.surname = response.surname;
                 this.authStatusListener.next({ isAuth: true });
+                this.setCookies();
                 this.router.navigate(['/']);
             }
         })
@@ -66,6 +68,7 @@ export class AuthService {
                     this.name = response.name;
                     this.surname = response.surname;
                     this.authStatusListener.next({ isAuth: true });
+                    this.setCookies();
                     this.router.navigate(['/']);
                 }
             }
@@ -77,7 +80,56 @@ export class AuthService {
         this.isAuth = false;
         this.name = '';
         this.surname = '';
-        this.token = undefined;
-        this.userID = undefined;
+        this.token = '';
+        this.userID = '';
+        this.clearCookies();
     }
+
+    private setCookies() {
+        this.cookies.set('SESSION_TOKEN', this.token, 1);
+        this.cookies.set('USER_ID', this.userID, 1);
+        this.cookies.set('USER_NAME', this.name, 1);
+        this.cookies.set('USER_SURNAME', this.surname, 1);
+    }
+
+    private clearCookies() {
+        this.cookies.delete('SESSION_TOKEN');
+        this.cookies.delete('USER_ID');
+        this.cookies.delete('USER_NAME');
+        this.cookies.delete('USER_SURNAME');
+    }
+
+    private getCookiesData() {
+        const token = this.cookies.get('SESSION_TOKEN');
+        const userID = this.cookies.get('USER_ID');
+        const name = this.cookies.get('USER_NAME');
+        const surname = this.cookies.get('USER_SURNAME');
+
+        if(!token) {
+            return;
+        }
+
+        return {
+            token: token,
+            userID: userID,
+            name: name,
+            surname: surname
+        }
+    }
+
+    autoAuth() {
+        const authInfo = this.getCookiesData();
+        if (!authInfo) {
+            return;
+        }
+
+        this.token = authInfo.token;
+        this.userID = authInfo.userID;
+        this.name = authInfo.name;
+        this.surname = authInfo.surname;
+        this.isAuth = true;
+        this.authStatusListener.next({ isAuth: true });
+    }
+
+
 }

@@ -10,6 +10,8 @@ export class AuthService {
     private token!: string;
     private isAuth = false;
     private userID!: string;
+    private name: string = '';
+    private surname: string = '';
     private authStatusListener = new Subject<boolean>();
 
     constructor(private http: HttpClient, private router: Router) {}
@@ -41,13 +43,15 @@ export class AuthService {
 
     login(email: string, password: string) {
         const authData = { email: email, password: password }
-        this.http.post<{ token: string, userID: string }>('http://localhost:3000/api/users/login', authData).subscribe({
+        this.http.post<{ token: string, userID: string, name: string, surname: string }>('http://localhost:3000/api/users/login', authData).subscribe({
             next: response => {
                 const token = response.token;
                 this.token = token;
                 if(token) {
                     this.isAuth = true;
                     this.userID = response.userID;
+                    this.name = response.name;
+                    this.surname = response.surname;
                     this.authStatusListener.next(true);
                     this.router.navigate(['/']);
                 }

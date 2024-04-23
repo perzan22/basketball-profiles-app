@@ -2,7 +2,7 @@
     <mat-card-title>
         <h1>Login</h1>
     </mat-card-title>
-    <form #signupForm="ngForm">
+    <form #loginForm="ngForm" (submit)="onLogin(loginForm)">
         <mat-form-field>
             <input 
             matInput 

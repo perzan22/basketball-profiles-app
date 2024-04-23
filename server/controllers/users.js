@@ -19,3 +19,36 @@ exports.createUser = (req, res, next) => {
         })
     })
 }
+
+exports.loginUser = (req, res, next) => {
+    let fetchedUser;
+    User.findOne({ email: req.body.email })
+        .then(user => {
+            if (!user) {
+                throw new Error("Not existing email!")
+            }
+            fetchedUser = user;
+            return bcrypt.compare(req.body.password, user.password);
+        }).then(result => {
+            if (!result) {
+                return res.status(401).json({
+                    message: 'Not valid password!'
+                });
+
+            }
+            const token = jwt.sign({ email: fetchedUser.email, userID: fetchedUser._id, name: fetchedUser.name, surname: fetchedUser.surname }, 
+            'SECRET_PHRASE_LONG_ENOUGH_to_BE_VALID_SECRET_KEY_OR_NOT');
+            res.status(200).json({
+                token: token,
+                userID: fetchedUser._id,
+                name: fetchedUser.name,
+                surname: fetchedUser.surname
+            })
+
+        })
+        .catch(() => {
+            return res.status(401).json({
+                message: 'Invalid authentication credentials'
+            })
+        })
+}

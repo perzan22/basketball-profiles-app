@@ -1,3 +1,4 @@
+const profile = require('../models/profile')
 const Profile = require('../models/profile')
 
 exports.createProfile = (req, res, next) => {
@@ -45,6 +46,17 @@ exports.deleteProfile = (req, res, next) => {
             res.status(200).json({ message: 'Deleted successfully' })
         } else {
             res.status(401).json({ message: 'Delete not successfully' })
+        }
+    })
+}
+
+exports.getProfile = (req, res, next) => {
+    profileID = req.params.id;
+    Profile.findById(profileID).then(profile => {
+        if (profile) {
+            res.status(200).json(profile)
+        } else {
+            res.status(404).json('Profile not found!')
         }
     })
 }

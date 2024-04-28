@@ -17,6 +17,7 @@
                 <p>Description: <br>{{ profile.description }}</p>
             </div>
            <div class="profile-buttons">
+                <button mat-button color="primary" *ngIf="isAuth && userID === profile.creator" [routerLink]="['/edit', profile.id]">EDIT</button>
                 <button mat-button color="warn" *ngIf="isAuth && userID === profile.creator" (click)="onDelete(profile.id)">DELETE</button>
            </div>
         </section>

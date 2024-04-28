@@ -72,4 +72,8 @@ export class ProfileService {
     deleteProfile(profileID: string) {
         return this.http.delete('http://localhost:3000/api/profiles/' + profileID)
     }
+
+    getProfile(profileID: string | null) {
+        return this.http.get<{ _id: string, name: string, surname: string, birthday: string, height: string, weight: string, position: string, description: string, creator: string }>('http://localhost:3000/api/profiles/' + profileID)
+    }
 }

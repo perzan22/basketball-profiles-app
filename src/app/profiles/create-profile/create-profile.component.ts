@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProfileService } from '../profile.service';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Profile } from '../profile.model';
 
 @Component({
   selector: 'app-create-profile',
@@ -9,6 +11,10 @@ import { ProfileService } from '../profile.service';
 })
 export class CreateProfileComponent implements OnInit {
 
+  private mode = 'create'
+  private profileID: string | null = null
+
+  profile!: Profile
   form!: FormGroup;
 
   positions = [
@@ -20,7 +26,7 @@ export class CreateProfileComponent implements OnInit {
 
   ]
 
-  constructor(private profileService: ProfileService) {}
+  constructor(private profileService: ProfileService, public route: ActivatedRoute) {}
 
   ngOnInit(): void {
 
@@ -53,6 +59,23 @@ export class CreateProfileComponent implements OnInit {
       'strengths6': new FormControl(false),
       'strengths7': new FormControl(false),
       'strengths8': new FormControl(false)
+    });
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has('postId')) {
+        this.mode = 'edit';
+        this.profileID = paramMap.get('postId');
+        this.profileService.getProfile(this.profileID).subscribe(profileData => {
+          this.profile = {id: profileData._id, name: profileData.name, surname: profileData.surname,
+                          birthday: profileData.birthday, height: profileData.height, weight: profileData.weight, 
+                          position: profileData.position, description: profileData.description, creator: profileData.creator};
+          this.form.setValue({'name': this.profile.name, 'surname': this.profile.surname, 'birthday': this.profile.birthday, 'height:': this.profile.height, 'weight': this.profile.weight,
+            'position': this.profile.position, 'description': this.profile.description
+          });
+        });
+      } else {
+        this.mode = 'create';
+        this.profileID = null;
+      }
     });
   }
 

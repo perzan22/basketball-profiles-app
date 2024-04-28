@@ -11,6 +11,8 @@ router.post('', multer().none(), checkAuth, ProfilesControllers.createProfile);
 
 router.get('', ProfilesControllers.getProfiles);
 
-router.delete('/:id', ProfilesControllers.deleteProfile)
+router.delete('/:id', checkAuth, ProfilesControllers.deleteProfile)
+
+router.get('/:id', checkAuth, ProfilesControllers.getProfile)
 
 module.exports = router;

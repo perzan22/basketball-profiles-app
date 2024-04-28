@@ -42,7 +42,7 @@ export class ProfileService {
         this.http.get<{ message: string, profiles: any }>('http://localhost:3000/api/profiles')
         .pipe(map(profileData => {
             return {
-                profiles: profileData.profiles.map((profile: { _id: any; name: any; surname: any; birthday: any; height: any; weight: any; position: any; description: any; }) => {
+                profiles: profileData.profiles.map((profile: { _id: any; name: any; surname: any; birthday: any; height: any; weight: any; position: any; description: any; creator: any;}) => {
                     return {
                         id: profile._id,
                         name: profile.name, 
@@ -51,7 +51,8 @@ export class ProfileService {
                         height: profile.height,
                         weight: profile.weight,
                         position: profile.position,
-                        description: profile.description
+                        description: profile.description,
+                        creator: profile.creator
                     }
                 })
             }

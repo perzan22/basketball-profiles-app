@@ -12,7 +12,8 @@ exports.createProfile = (req, res, next) => {
         /*strength1: req.body.strength1,
         strength2: req.body.strength2,
         strength3: req.body.strength3,*/
-        description: req.body.description
+        description: req.body.description,
+        creator: req.userData.userID
     })
 
 

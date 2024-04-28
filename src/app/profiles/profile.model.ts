@@ -9,5 +9,6 @@ export interface Profile {
     /*strength1: string,
     strength2: string,
     strength3: string,*/
-    description: string
+    description: string,
+    creator: string
 }

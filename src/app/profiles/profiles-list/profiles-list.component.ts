@@ -37,6 +37,15 @@ export class ProfilesListComponent implements OnInit, OnDestroy{
         this.userID = this.authService.getUserId();
       }
     })
+    this.userID = this.authService.getUserId();
+    this.isAuth = this.authService.getIsAuth();
+    this.authStatusSubs = this.authService.getAuthStatusListener().subscribe({
+      next: isAuthenticated => {
+        this.isAuth = isAuthenticated.isAuth
+        this.userID = this.authService.getUserId();
+      }
+    })
+    console.log(this.isAuth, this.profiles)
   }
 
   ngOnDestroy(): void {

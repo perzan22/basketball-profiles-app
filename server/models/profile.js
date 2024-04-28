@@ -10,7 +10,8 @@ const profileSchema = mongoose.Schema({
     /*strength1: { type: String, required: false },
     strength2: { type: String, required: false },
     strength3: { type: String, required: false },*/
-    description: { type: String, required: false }
+    description: { type: String, required: false },
+    creator: { type: String, required: true }
 
 })
 

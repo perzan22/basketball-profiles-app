@@ -2,7 +2,7 @@
     <mat-card-title>
         <h1>Signup</h1>
     </mat-card-title>
-    <form #signupForm="ngForm">
+    <form #signupForm="ngForm" (submit)="onSignup(signupForm)">
         <mat-form-field>
             <input 
             matInput 
@@ -48,5 +48,6 @@
 
         </mat-form-field>
         <button type="submit" mat-raised-button color='primary'>Signup</button>
+        <p><a routerLink="/login">Login if you already have an account.</a></p>
     </form>
 </mat-card>

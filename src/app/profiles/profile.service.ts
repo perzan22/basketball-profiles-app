@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Profile } from "./profile.model";
 import { Subject, map } from "rxjs";
+import { Router } from "@angular/router";
 
 @Injectable({ providedIn: 'root' })
 export class ProfileService {
@@ -9,7 +10,7 @@ export class ProfileService {
     private profiles: Profile[] = [];
     private profilesSubs = new Subject<{ profiles: Profile[] }>
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private router: Router) {}
 
     addProfile(name: string, surname: string, birthday: Date, height: string, weight: string, position: string, description: string) {
         
@@ -27,6 +28,7 @@ export class ProfileService {
         this.http.post<{message: string, profile: Profile}>('http://localhost:3000/api/profiles', profileData).subscribe({
             next: () => {
                 console.log('Profile created')
+                this.router.navigate(['/']) 
             },
             error: () => {
                 console.log("Profile not created")
@@ -40,7 +42,7 @@ export class ProfileService {
         this.http.get<{ message: string, profiles: any }>('http://localhost:3000/api/profiles')
         .pipe(map(profileData => {
             return {
-                profiles: profileData.profiles.map((profile: { _id: any; name: any; surname: any; birthday: any; height: any; weight: any; position: any; description: any; }) => {
+                profiles: profileData.profiles.map((profile: { _id: any; name: any; surname: any; birthday: any; height: any; weight: any; position: any; description: any; creator: any;}) => {
                     return {
                         id: profile._id,
                         name: profile.name, 
@@ -49,7 +51,8 @@ export class ProfileService {
                         height: profile.height,
                         weight: profile.weight,
                         position: profile.position,
-                        description: profile.description
+                        description: profile.description,
+                        creator: profile.creator
                     }
                 })
             }

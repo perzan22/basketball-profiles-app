@@ -76,4 +76,25 @@ export class ProfileService {
     getProfile(profileID: string | null) {
         return this.http.get<{ _id: string, name: string, surname: string, birthday: string, height: string, weight: string, position: string, description: string, creator: string }>('http://localhost:3000/api/profiles/' + profileID)
     }
+
+    editProfile(id: string | null, name: string, surname: string, birthday: Date, height: string, weight: string, position: string, description: string) {
+        const stringBirth = birthday.toISOString().substring(0, 10);
+        console.log(stringBirth)
+        const profileData = new FormData();
+        if (id !== null) {
+            profileData.append('id', id)
+            profileData.append('name', name)
+            profileData.append('surname', surname)
+            profileData.append('birthday', stringBirth)
+            profileData.append('height', height)
+            profileData.append('weight', weight)
+            profileData.append('position', position)
+            profileData.append('description', description)
+            this.http.put('http://localhost:3000/api/profiles/' + id, profileData)
+            .subscribe(response => {
+                this.router.navigate(['/'])
+        })
+        }
+        
+    }
 }

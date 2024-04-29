@@ -60,3 +60,30 @@ exports.getProfile = (req, res, next) => {
         }
     })
 }
+
+exports.editProfile = (req, res, next) => {
+    const profile = new Profile({
+        _id: req.body.id,
+        name: req.body.name,
+        surname: req.body.surname,
+        birthday: req.body.birthday,
+        height: req.body.height,
+        weight: req.body.weight,
+        position: req.body.position,
+        description: req.body.description,
+        creator: req.userData.userID
+    });
+
+    Profile.updateOne({_id: req.body.id, creator: req.userData.userID}, profile).then(result => {
+        if (result.matchedCount > 0) {
+            res.status(200).json({ message: 'Profile updated successfully!' })
+        } else {
+            res.status(401).json({ message: 'Not authorized' })
+        }
+    })
+    .catch(error => {
+        res.status(500).json({
+            message: 'Couldnt update a post'
+        })
+    });
+}

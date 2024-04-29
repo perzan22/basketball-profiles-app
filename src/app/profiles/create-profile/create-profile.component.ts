@@ -61,15 +61,15 @@ export class CreateProfileComponent implements OnInit {
       'strengths8': new FormControl(false)
     });
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
-      if (paramMap.has('postId')) {
+      if (paramMap.has('profileID')) {
         this.mode = 'edit';
-        this.profileID = paramMap.get('postId');
+        this.profileID = paramMap.get('profileID');
         this.profileService.getProfile(this.profileID).subscribe(profileData => {
           this.profile = {id: profileData._id, name: profileData.name, surname: profileData.surname,
                           birthday: profileData.birthday, height: profileData.height, weight: profileData.weight, 
                           position: profileData.position, description: profileData.description, creator: profileData.creator};
-          this.form.setValue({'name': this.profile.name, 'surname': this.profile.surname, 'birthday': this.profile.birthday, 'height:': this.profile.height, 'weight': this.profile.weight,
-            'position': this.profile.position, 'description': this.profile.description
+          this.form.setValue({'name': this.profile.name, 'surname': this.profile.surname, 'birthday': this.profile.birthday, 'height': this.profile.height, 'weight': this.profile.weight,
+            'position': this.profile.position, 'description': this.profile.description, 'strengths1': false, 'strengths2': false,'strengths3': false,'strengths4': false,'strengths5': false,'strengths6': false,'strengths7': false,'strengths8': false,
           });
         });
       } else {
@@ -84,7 +84,12 @@ export class CreateProfileComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-    this.profileService.addProfile(this.form.value.name, this.form.value.surname, this.form.value.birthday, this.form.value.height, this.form.value.weight, this.form.value.position, this.form.value.description);
+    if (this.mode === 'create') {
+      this.profileService.addProfile(this.form.value.name, this.form.value.surname, this.form.value.birthday, this.form.value.height, this.form.value.weight, this.form.value.position, this.form.value.description);
+    } else {
+      this.profileService.editProfile(this.profileID, this.form.value.name, this.form.value.surname, this.form.value.birthday, this.form.value.height, this.form.value.weight, this.form.value.position, this.form.value.description)
+    }
+
     this.form.reset();
   }
     
